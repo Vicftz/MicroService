@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout/head"></head>
+<body>
+<div class="container-fluid">
+    <nav th:include="layout/navbar"></nav>
+</div>
+<div class="container mt-4">
+    <div class="row">
+        <h1 class="col-12 text-center my-4">
+            Liste des livres disponibles
+        </h1>
+    </div>
+    <div class="row">
+        <table class="table" >
+            <thead>
+            <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">Id du lecteur</th>
+                <th scope="col">Date d'emprunt</th>
+                <th scope="col">Date du retour</th>
+                <th scope="col">Effectuer un retour</th>
+            </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+    </div>
+</div>
+<script th:inline="javascript">
+    var borrownings = JSON.parse([[${borrownings}]]);
+    console.log(borrownings);
+    $( document ).ready(function() {
+        var i;
+        for (i = 0; i < borrownings.length; i++) {
+            $('#table-body').append(
+                '<tr>' +
+                '   <td>' + borrownings[i]['isbn'] +  '</td>' +
+                '   <td>' + borrownings[i]['idReader'] +  '</td>' +
+                '   <td>' + borrownings[i]['borrowingDate'] +  '</td>' +
+                '   <td>' + borrownings[i]['returningDate'] +  '</td>' +
+                '   <td> <a href="/borrowings/' + borrownings[i]['id'] + '"><div class="btn btn-primary">Retour</div></a>  ' +  '</td>' +
+                '</tr>'
+            )
+        }
+    });
+</script>
+</body>
+</html>

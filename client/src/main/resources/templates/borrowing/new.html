@@ -13,31 +13,23 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8 col-12">
-            <form method="POST" action="127.0.0.1:8080/books" id="form">
+            <form id="form">
                 <div class="form-group">
-                    <label for="title">Titre du livre</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre" value="">
+                    <label for="isbn">ISBN du livre</label>
+                    <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ID du livre" value="">
                 </div>
                 <div class="form-group">
-                    <label for="author">Auteur</label>
-                    <input type="text" class="form-control" id="author" name="author" placeholder="Auteur" value="">
+                    <label for="id_reader">ID du lecteur</label>
+                    <input type="text" class="form-control" id="id_reader" name="id_reader" placeholder="ID du livre" value="">
                 </div>
                 <div class="form-group">
-                    <label for="editor">Editeur</label>
-                    <input type="text" class="form-control" id="editor" name="title" placeholder="Editeur" value="">
+                    <label for="borrowing_date">Date d'emprunt</label>
+                    <input type="date" class="form-control" id="borrowing_date" name="borrowing_date" placeholder="Date d'emprunt" value="">
                 </div>
                 <div class="form-group">
-                    <label for="year">Année de parution</label>
-                    <input type="number" class="form-control" id="year" name="year" placeholder="Année de parution" value="2020">
+                    <label for="returning_date">Date de retour</label>
+                    <input type="date" class="form-control" id="returning_date" name="returning_date" value="">
                 </div>
-                <div class="form-group">
-                    <label for="type">Type de livre</label>
-                    <select class="form-control" id="type" name="type">
-                        <option value="Bande dessinée" selected>Bande dessinée</option>
-                        <option value="Roman">Roman</option>
-                    </select>
-                </div>
-                <input type="hidden" value="true" name="availability">
             </form>
             <div class="btn btn-primary" id="btn-submit">Submit</div>
         </div>
@@ -47,15 +39,12 @@
         $( document ).ready(function() {
 
             $('#btn-submit').click(function () {
-                console.log('click');
 
                 var data = {
-                    title : $('#title').val(),
-                    author : $('#author').val(),
-                    editor : $('#editor').val(),
-                    year : $('#year').val(),
-                    type : $('#type').val(),
-                    availability : "true"
+                    isbn : $('#isbn').val(),
+                    id_reader : $('#id_reader').val(),
+                    borrowing_date : $('#borrowing_date').val(),
+                    returning_date : $('#returning_date').val()
                 }
 
                 var dataString = JSON.stringify(data);

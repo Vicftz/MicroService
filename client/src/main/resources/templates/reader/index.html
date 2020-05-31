@@ -8,7 +8,7 @@
 <div class="container mt-4">
     <div class="row">
         <h1 class="col-12 text-center my-4">
-            Liste des livres disponibles
+            Liste des lecteurs
         </h1>
     </div>
     <div class="row">
@@ -30,20 +30,20 @@
     </div>
 </div>
 <script th:inline="javascript">
-    var users = JSON.parse([[${users}]]);
+    var readers = JSON.parse([[${readers}]]);
     $( document ).ready(function() {
         var i;
-        for (i = 0; i < users.length; i++) {
+        for (i = 0; i < readers.length; i++) {
             $('#table-body').append(
                 '<tr>' +
-                '   <td>' + users[i]['id'] +  '</td>' +
-                '   <td>' + users[i]['title'] +  '</td>' +
-                '   <td>' + users[i]['author'] +  '</td>' +
-                '   <td>' + users[i]['editor'] +  '</td>' +
-                '   <td>' + users[i]['year'] +  '</td>' +
-                '   <td> <a href="/book/update?isbn=' + books[i]['isbn'] + '"><div class="btn btn-primary"> Modifier</div></a>  ' +  '</td>' +
+                '   <td>' + readers[i]['id'] +  '</td>' +
+                '   <td>' + readers[i]['genre'] +  '</td>' +
+                '   <td>' + readers[i]['nom'] +  '</td>' +
+                '   <td>' + readers[i]['prenom'] +  '</td>' +
+                '   <td>' + readers[i]['dateDeNaissance'] +  '</td>' +
+                '   <td> <a href="/readers/update/' + readers[i]['id'] + '"><div class="btn btn-primary"> Modifier</div></a>  ' +  '</td>' +
                 '   <td> ' +
-                '       <form method="POST" action="127.0.0.1:8080/booksDelete/'  + books[i]['isbn']  + '">' +
+                '       <form method="POST" action="127.0.0.1:8080/readersDelete/'  + readers[i]['id']  + '">' +
                             '<button type="submit" class="btn btn-danger"> Supprimer</button>' +
                 '       </form>' +
                     '</td>' +

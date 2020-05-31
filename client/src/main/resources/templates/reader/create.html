@@ -13,29 +13,29 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8 col-12">
-            <form method="POST" action="127.0.0.1:8080/books" id="form">
+            <form id="form">
                 <div class="form-group">
-                    <label for="gender">Genre</label>
-                    <select class="form-control" id="gender" name="gender">
+                    <label for="genre">Genre</label>
+                    <select class="form-control" id="genre" name="genre">
                         <option value="M" selected>Homme</option>
                         <option value="F">Femme</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="title">Nom</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre" value="">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="">
                 </div>
                 <div class="form-group">
-                    <label for="author">Prénom</label>
-                    <input type="text" class="form-control" id="author" name="author" placeholder="Auteur" value="">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prenom" value="">
                 </div>
                 <div class="form-group">
-                    <label for="birthdate">Date de naissance</label>
-                    <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Date de naisance" value="">
+                    <label for="date_de_naissance">Année de naissance</label>
+                    <input type="date" class="form-control" id="date_de_naissance" name="date_de_naissance" value="">
                 </div>
                 <div class="form-group">
-                    <label for="address">Adresse</label>
-                    <input type="text" class="form-control" id="address" name="address" placeholder="Adresse" >
+                    <label for="adresse">Adresse</label>
+                    <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
                 </div>
             </form>
             <div class="btn btn-primary" id="btn-submit">Submit</div>
@@ -49,30 +49,31 @@
                 console.log('click');
 
                 var data = {
-                    title : $('#title').val(),
-                    author : $('#author').val(),
-                    editor : $('#editor').val(),
-                    year : $('#year').val(),
-                    type : $('#type').val(),
-                    availability : "true"
+                    genre : $('#genre').val(),
+                    nom : $('#nom').val(),
+                    prenom : $('#prenom').val(),
+                    dateDeNaissance : $('#date_de_naissance').val(),
+                    adresse : $('#adresse').val()
                 }
 
                 var dataString = JSON.stringify(data);
 
 
                 $.ajax({
-                    url: "http://127.0.0.1:8080/books",
+                    url: "http://127.0.0.1:8081/readers",
                     type: "POST",
                     data: dataString,
                     dataType : 'json',
                     //processData: false,  // indique à jQuery de ne pas traiter les données
                     contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
                     success: function() {
-                        alert('Livre ajouté avec succès');
+                        if(confirm('Utilisateur ajouté avec succès')){
+                            window.location.replace("/readers");
+                        }
                     },
                     error: function(data) {
                         console.log(data)
-                        alert("erreur");
+                        alert("Une erreur a eu lieu");
                     }
                 });
             })

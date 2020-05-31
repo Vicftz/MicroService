@@ -10,8 +10,7 @@ import org.springframework.web.client.RestTemplate;
 public class BookController {
 
     @GetMapping("/book/create")
-    public String create(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
+    public String create() {
         return "book/create.html";
     }
 
@@ -36,7 +35,6 @@ public class BookController {
 
         model.addAttribute("books", books);
 
-        System.out.println("{books : " + books + "}");
         return "book/index.html";
 
     }
