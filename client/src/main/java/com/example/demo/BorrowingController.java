@@ -11,7 +11,7 @@ public class BorrowingController {
 
     @GetMapping("/reservations")
     public String borrowings(Model model) {
-        final String uri = "http://127.0.0.1:8080/borrownings";
+        final String uri = "http://127.0.0.1:8080/borrowings";
 
         RestTemplate restTemplate = new RestTemplate();
         String borrownings = restTemplate.getForObject(uri, String.class);

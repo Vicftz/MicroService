@@ -20,6 +20,7 @@
                 <th scope="col">Auteur</th>
                 <th scope="col">Editeur</th>
                 <th scope="col">Année</th>
+                <th scope="col">Disponibilité</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Supprimer</th>
             </tr>
@@ -41,6 +42,7 @@
                 '   <td>' + books[i]['author'] +  '</td>' +
                 '   <td>' + books[i]['editor'] +  '</td>' +
                 '   <td>' + books[i]['year'] +  '</td>' +
+                '   <td>' + books[i]['availability'] +  '</td>' +
                 '   <td> <a href="/book/update?isbn=' + books[i]['isbn'] + '"><div class="btn btn-primary"> Modifier</div></a>  ' +  '</td>' +
                 '   <td> ' +
                 '       <form method="POST" action="http://127.0.0.1:8080/booksDelete/'  + books[i]['isbn']  + '">' +

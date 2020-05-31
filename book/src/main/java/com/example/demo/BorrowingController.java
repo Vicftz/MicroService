@@ -11,23 +11,33 @@ public class BorrowingController {
 
 	@Autowired
 	private BorrowingRepository repository;
+	@Autowired
+	private BookRepository bookRepository;
 	
 	//Get a book by isbn
-	@GetMapping("/borrownings/{id}")
+	@GetMapping("/borrowings/{id}")
 	public Optional<Borrowing> getBorrowningById(@PathVariable Long id) {
 		return repository.findById(id);
 	}
 	
 	//Get all books
-	@GetMapping("/borrownings")
+	@GetMapping("/borrowings")
 	public List<Borrowing> getAllBorrowning() {
 		return repository.findAll();
 	}
 
 	//Post
-	@PostMapping("/borrownings")
-	public Borrowing AddBorrowing(@RequestBody Borrowing borrowing) {
-		return repository.saveAndFlush(borrowing);
+	@PostMapping("/borrowing")
+	public Borrowing AddBorrowing(@RequestBody Borrowing borrowing) throws Exception {
+		Long bookIsdn = borrowing.getIsbn();
+		Book book = bookRepository.findByIsbn(bookIsdn);
+		if(book.getAvailability()){
+			book.setAvailability(false);
+			bookRepository.saveAndFlush(book);
+			return repository.saveAndFlush(borrowing);
+		}else{
+			throw new Exception("Le livre n'est pas disponible");
+		}
 	}
 
 	
