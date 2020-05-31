@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout/head"></head>
+<body>
+<div class="container-fluid">
+    <nav th:include="layout/navbar"></nav>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-8 col-12">
+            <form method="POST" action="/books">
+                <div class="form-group">
+                    <label for="title">Titre du livre</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre">
+                </div>
+                <div class="form-group">
+                    <label for="author">Auteur</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Auteur">
+                </div>
+                <div class="form-group">
+                    <label for="editor">Editeur</label>
+                    <input type="text" class="form-control" id="editor" name="title" placeholder="Editeur">
+                </div>
+                <div class="form-group">
+                    <label for="year">Année de parution</label>
+                    <input type="number" class="form-control" id="year" name="year" placeholder="Année de parution">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type de livre</label>
+                    <select class="form-control" id="type" name="type">
+                        <option value="Bande dessinée">Bande dessinée</option>
+                        <option value="Roman">Roman</option>
+                    </select>
+                </div>
+                <input type="hidden" value="true" name="availability">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

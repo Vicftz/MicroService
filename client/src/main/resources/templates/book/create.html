@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout/head"></head>
+<body>
+<div class="container-fluid">
+    <nav th:include="layout/navbar"></nav>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-8 col-12">
+            <form method="POST" action="127.0.0.1:8080/books" id="form">
+                <div class="form-group">
+                    <label for="title">Titre du livre</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre" value="test">
+                </div>
+                <div class="form-group">
+                    <label for="author">Auteur</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Auteur" value="test">
+                </div>
+                <div class="form-group">
+                    <label for="editor">Editeur</label>
+                    <input type="text" class="form-control" id="editor" name="title" placeholder="Editeur" value="test">
+                </div>
+                <div class="form-group">
+                    <label for="year">Année de parution</label>
+                    <input type="number" class="form-control" id="year" name="year" placeholder="Année de parution" value="2000">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type de livre</label>
+                    <select class="form-control" id="type" name="type">
+                        <option value="Bande dessinée" selected>Bande dessinée</option>
+                        <option value="Roman">Roman</option>
+                    </select>
+                </div>
+                <input type="hidden" value="true" name="availability">
+            </form>
+            <div class="btn btn-primary" id="btn-submit">Submit</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://www.turnjs.com/lib/turn.min.js "></script>
+    <script>
+        $( document ).ready(function() {
+
+            $('#btn-submit').click(function () {
+                console.log('click');
+
+                var data = {
+                    title : $('#title').val(),
+                    author : $('#author').val(),
+                    editor : $('#editor').val(),
+                    year : $('#year').val(),
+                    type : $('#type').val(),
+                    availability : "true"
+                }
+
+                var dataString = JSON.stringify(data);
+
+
+                $.ajax({
+                    url: "http://127.0.0.1:8080/books",
+                    type: "POST",
+                    data: dataString,
+                    dataType : 'json',
+                    //processData: false,  // indique à jQuery de ne pas traiter les données
+                    contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
+                    success: function() {
+                        alert('Livre ajouté avec succès');
+                    },
+                    error: function(data) {
+                        console.log(data)
+                        alert("erreur");
+                    }
+                });
+            })
+        });
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout/head"></head>
+<body>
+<div class="container-fluid">
+    <nav th:include="layout/navbar"></nav>
+</div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-sm-8 col-12">
+            <form method="POST" action="127.0.0.1:8080/books">
+                <div class="form-group">
+                    <label for="title">Titre du livre</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre">
+                </div>
+                <div class="form-group">
+                    <label for="author">Auteur</label>
+                    <input type="text" class="form-control" id="author" name="author" placeholder="Auteur">
+                </div>
+                <div class="form-group">
+                    <label for="editor">Editeur</label>
+                    <input type="text" class="form-control" id="editor" name="title" placeholder="Editeur">
+                </div>
+                <div class="form-group">
+                    <label for="year">Année de parution</label>
+                    <input type="number" class="form-control" id="year" name="year" placeholder="Année de parution">
+                </div>
+                <div class="form-group">
+                    <label for="type">Type de livre</label>
+                    <select class="form-control" id="type" name="type">
+                        <option value="Bande dessinée" selected>Bande dessinée</option>
+                        <option value="Roman">Roman</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="availability">Disponible ?</label>
+                    <input type="checkbox" class="form-control" id="availability" name="availability">
+                </div>
+            </form>
+            <div class="btn btn-primary" id="btn-submit">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    var book = JSON.parse([[${book}]]);
+    console.log(book)
+    console.log(parseInt(book['year']))
+    $( document ).ready(function() {
+        $('#title').val(book['title']);
+        $('#author').val(book['author']);
+        $('#editor').val(book['editor']);
+        $('#year').val(parseInt(book['year']));
+        $('#type').val(book['title']);
+        $("#checkbox1").prop('checked', $('#availability').val(book['availability']));
+
+        $('#btn-submit').click(function () {
+            console.log('click');
+
+            var data = {
+                isbn : book['isbn'],
+                title : $('#title').val(),
+                author : $('#author').val(),
+                editor : $('#editor').val(),
+                year : $('#year').val(),
+                type : $('#type').val(),
+                availability : $('#availability').val()
+            }
+
+            var dataString = JSON.stringify(data);
+
+
+            $.ajax({
+                url: "http://127.0.0.1:8080/bookUpdates",
+                type: "PUT",
+                data: dataString,
+                dataType : 'json',
+                //processData: false,  // indique à jQuery de ne pas traiter les données
+                contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
+                success: function() {
+                    alert('Livre ajouté avec succès');
+                },
+                error: function(data) {
+                    console.log(data)
+                    alert("erreur");
+                }
+            });
+        })
+    });
+</script>
+</body>
+</html>
