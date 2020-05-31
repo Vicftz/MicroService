@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="layout/head"></head>
+<body>
+<div class="container-fluid">
+    <nav th:include="layout/navbar"></nav>
+</div>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 text-center">
+            <h1>The french bookstore</h1>
+        </div>
+        <div class="col-12 text-center">
+            <h3>By Fethi & Victor</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <a href="/books">
+                <button type="button" class="btn btn-primary btn-lg btn-block my-2">Liste des livres</button>
+            </a>
+            <button type="button" class="btn btn-secondary btn-lg btn-block my-2">Liste des utilisateurs</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
