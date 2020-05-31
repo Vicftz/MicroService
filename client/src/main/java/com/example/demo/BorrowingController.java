@@ -22,10 +22,10 @@ public class BorrowingController {
 
     @GetMapping("/nouvelle-reservation")
     public String newBorrow() {
-        return "borrowing/new.html";
+        return "borrowing/create.html";
     }
 
-    @GetMapping("/retour")
+    @GetMapping("/retours")
     public String backBorrow(Model model) {
         final String uri = "http://127.0.0.1:8080/returnings";
 

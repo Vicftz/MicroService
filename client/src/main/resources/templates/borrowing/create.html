@@ -51,15 +51,15 @@
 
 
                 $.ajax({
-                    url: "http://127.0.0.1:8080/books",
+                    url: "http://127.0.0.1:8080/borrownings",
                     type: "POST",
                     data: dataString,
                     dataType : 'json',
                     //processData: false,  // indique à jQuery de ne pas traiter les données
                     contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
                     success: function() {
-                        if(confirm('Livre ajouté avec succès')){
-                            window.location.replace("/books");
+                        if(confirm('Réservation crée avec succès')){
+                            window.location.replace("/reservations");
                         }
                     },
                     error: function(data) {
