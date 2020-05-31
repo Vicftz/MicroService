@@ -1,9 +1,12 @@
 package com.example.demo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -36,29 +39,34 @@ public class BorrowingController {
 			bookRepository.saveAndFlush(book);
 			return repository.saveAndFlush(borrowing);
 		}else{
-			throw new Exception("Le livre n'est pas disponible");
+			return null;
 		}
+	}
+
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	@ExceptionHandler({ Exception.class })
+	public void handleException(String message) {
 	}
 
 	
 	//Update
-	@PutMapping("/borrowningUpdates")
-	public Borrowing updateBook (@RequestBody Borrowing borrowing) {
-		Borrowing borrowingToUpdate = repository.getOne(borrowing.getId());
-		borrowingToUpdate.setIsbn(borrowing.getIsbn());
-		borrowingToUpdate.setIdReader(borrowing.getIdReader());
-		borrowingToUpdate.setBorrowingDate(borrowing.getBorrowingDate());
-		borrowingToUpdate.setReturningDate(borrowing.getReturningDate());
+	@PostMapping("/return/{id}")
+	public Borrowing updateBook (@PathVariable Long id) {
+		Borrowing borrowingToUpdate = repository.getOne(id);
+		Book book = bookRepository.findByIsbn(borrowingToUpdate.getIsbn());
+		borrowingToUpdate.setReturningDate((new SimpleDateFormat("dd-MM-yyyy")).format(new Date()));
+		book.setAvailability(true);
+		bookRepository.saveAndFlush(book);
 		return repository.saveAndFlush(borrowingToUpdate);
 	}
 	
 	
 	
 	//Delete
-		@DeleteMapping("/borrowningDelete")
-		public void deleteBorrowing (@RequestBody Borrowing borrowing) {
-			repository.delete(borrowing);
-		}
+	@DeleteMapping("/borrowningDelete")
+	public void deleteBorrowing (@RequestBody Borrowing borrowing) {
+		repository.delete(borrowing);
+	}
 
 	
 }

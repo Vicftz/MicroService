@@ -18,8 +18,7 @@
                 <th scope="col">ISBN</th>
                 <th scope="col">Id du lecteur</th>
                 <th scope="col">Date d'emprunt</th>
-                <th scope="col">Date du retour</th>
-                <th scope="col">Effectuer un retour</th>
+                <th scope="col">Retour</th>
             </tr>
             </thead>
             <tbody id="table-body">
@@ -32,17 +31,40 @@
     console.log(borrownings);
     $( document ).ready(function() {
         var i;
+        var date;
         for (i = 0; i < borrownings.length; i++) {
+            if(borrownings[i]['returningDate'] == null){
+                date = '   <td><div class="btn btn-primary return" id="' +borrownings[i]['id'] + '">Retour</div></a>  ' +  '</td>'
+            }else{
+                date = '<td>Retour effecuté</td>'
+            }
             $('#table-body').append(
                 '<tr>' +
                 '   <td>' + borrownings[i]['isbn'] +  '</td>' +
                 '   <td>' + borrownings[i]['idReader'] +  '</td>' +
                 '   <td>' + borrownings[i]['borrowingDate'] +  '</td>' +
-                '   <td>' + borrownings[i]['returningDate'] +  '</td>' +
-                '   <td> <a href="/borrowings/' + borrownings[i]['id'] + '"><div class="btn btn-primary">Retour</div></a>  ' +  '</td>' +
+                date +
                 '</tr>'
             )
         }
+        $('.return').click(function () {
+            $.ajax({
+                url: "http://127.0.0.1:8080/return/" + $(this).attr('id'),
+                type: "POST",
+                data: null,
+                //processData: false,  // indique à jQuery de ne pas traiter les données
+                success: function() {
+                    if(confirm('Livre rendu avec succès')){
+                        window.location.replace("/reservations");
+                    }
+                },
+                error: function(data) {
+                    console.log(data)
+                    alert("erreur");
+                }
+            });
+            console.log($(this).id);
+        })
     });
 </script>
 </body>

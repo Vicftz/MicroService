@@ -33,7 +33,7 @@ public class ReaderController {
 
 	
 	//Update
-	@PutMapping("/readerUpdates")
+	@PutMapping("/reader/update")
 	public Reader updateReader (@RequestBody Reader reader) {
 		Reader readerToUpdate = repository.getOne(reader.getId());
 		readerToUpdate.setGenre(reader.getGenre());
@@ -47,10 +47,11 @@ public class ReaderController {
 	
 	
 	//Delete
-		@DeleteMapping("/redaersDelete")
-		public void deleteRedaer (@RequestBody Reader reader) {
-			repository.delete(reader);
-		}
+	@DeleteMapping("/reader/delete/{id}")
+	public void deleteRedaer (@PathVariable Long id) {
+	Reader readerToDelete = repository.getOne(id);
+	repository.delete(readerToDelete);
+	}
 
 	
 }

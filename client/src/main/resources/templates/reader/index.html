@@ -41,15 +41,32 @@
                 '   <td>' + readers[i]['nom'] +  '</td>' +
                 '   <td>' + readers[i]['prenom'] +  '</td>' +
                 '   <td>' + readers[i]['dateDeNaissance'] +  '</td>' +
-                '   <td> <a href="/readers/update/' + readers[i]['id'] + '"><div class="btn btn-primary"> Modifier</div></a>  ' +  '</td>' +
+                '   <td> <a href="/reader/update/' + readers[i]['id'] + '"><div class="btn btn-primary"> Modifier</div></a>  ' +  '</td>' +
                 '   <td> ' +
-                '       <form method="POST" action="127.0.0.1:8080/readersDelete/'  + readers[i]['id']  + '">' +
-                            '<button type="submit" class="btn btn-danger"> Supprimer</button>' +
-                '       </form>' +
+                        '<div class="delete btn btn-danger" id="' +readers[i]['id'] + '">Supprimer</div>' +
                     '</td>' +
                 '</tr>'
             )
         }
+    });
+
+    $('.delete').click(function () {
+        $.ajax({
+            url: "http://127.0.0.1:8081/reader/delete/" + $(this).attr('id'),
+            type: "DELETE",
+            data: null,
+            //processData: false,  // indique à jQuery de ne pas traiter les données
+            success: function() {
+                if(confirm('Utilisateur supprimé avec succès')){
+                    window.location.replace("/readers");
+                }
+            },
+            error: function(data) {
+                console.log(data)
+                alert("erreur");
+            }
+        });
+        console.log($(this).id);
     });
 </script>
 </body>

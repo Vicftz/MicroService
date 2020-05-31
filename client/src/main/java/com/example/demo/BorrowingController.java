@@ -24,15 +24,4 @@ public class BorrowingController {
     public String newBorrow() {
         return "borrowing/create.html";
     }
-
-    @GetMapping("/retours")
-    public String backBorrow(Model model) {
-        final String uri = "http://127.0.0.1:8080/returnings";
-
-        RestTemplate restTemplate = new RestTemplate();
-        String returnings = restTemplate.getForObject(uri, String.class);
-
-        model.addAttribute("returnings", returnings);
-        return "borrowing/back.html";
-    }
 }

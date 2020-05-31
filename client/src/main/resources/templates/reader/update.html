@@ -6,89 +6,86 @@
     <nav th:include="layout/navbar"></nav>
 </div>
 <div class="container">
+    <div class="row">
+        <h1 class="col-12 text-center my-4">
+            Modifier un utilisateur
+        </h1>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8 col-12">
-            <form method="POST" action="127.0.0.1:8080/books">
+            <form id="form">
                 <div class="form-group">
-                    <label for="title">Titre du livre</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre">
-                </div>
-                <div class="form-group">
-                    <label for="author">Auteur</label>
-                    <input type="text" class="form-control" id="author" name="author" placeholder="Auteur">
-                </div>
-                <div class="form-group">
-                    <label for="editor">Editeur</label>
-                    <input type="text" class="form-control" id="editor" name="title" placeholder="Editeur">
-                </div>
-                <div class="form-group">
-                    <label for="year">Année de parution</label>
-                    <input type="number" class="form-control" id="year" name="year" placeholder="Année de parution">
-                </div>
-                <div class="form-group">
-                    <label for="type">Type de livre</label>
-                    <select class="form-control" id="type" name="type">
-                        <option value="Bande dessinée" selected>Bande dessinée</option>
-                        <option value="Roman">Roman</option>
+                    <label for="genre">Genre</label>
+                    <select class="form-control" id="genre" name="genre">
+                        <option value="M" selected>Homme</option>
+                        <option value="F">Femme</option>
                     </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="availability">Disponible ?</label>
-                    <input type="checkbox" class="form-control" id="availability" name="availability">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" value="">
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Prenom" value="">
+                </div>
+                <div class="form-group">
+                    <label for="date_de_naissance">Année de naissance</label>
+                    <input type="date" class="form-control" id="date_de_naissance" name="date_de_naissance" value="">
+                </div>
+                <div class="form-group">
+                    <label for="adresse">Adresse</label>
+                    <input type="text" class="form-control" id="adresse" name="adresse" placeholder="Adresse">
                 </div>
             </form>
-            <div class="btn btn-primary" id="btn-submit">Submit</button>
+            <div class="btn btn-primary" id="btn-submit">Submit</div>
         </div>
     </div>
-</div>
+    <script type="text/javascript" src="http://www.turnjs.com/lib/turn.min.js "></script>
+    <script th:inline="javascript">
+        var reader = JSON.parse([[${reader}]]);
+        $( document ).ready(function() {
+            console.log(reader);
+            $('#genre').val(reader['genre']);
+            $('#nom').val(reader['nom']);
+            $('#prenom').val(reader['prenom']);
+            $('#date_de_naissance').val(reader['dateDeNaissance']);
+            $('#adresse').val(reader['adresse']);
 
-<script th:inline="javascript">
-    var book = JSON.parse([[${book}]]);
-    console.log(book)
-    console.log(parseInt(book['year']))
-    $( document ).ready(function() {
-        $('#title').val(book['title']);
-        $('#author').val(book['author']);
-        $('#editor').val(book['editor']);
-        $('#year').val(parseInt(book['year']));
-        $('#type').val(book['type']);
-        $("#checkbox1").prop('checked', $('#availability').val(book['availability']));
 
-        $('#btn-submit').click(function () {
-            console.log('click');
+            $('#btn-submit').click(function () {
 
-            var data = {
-                isbn : book['isbn'],
-                title : $('#title').val(),
-                author : $('#author').val(),
-                editor : $('#editor').val(),
-                year : $('#year').val(),
-                type : $('#type').val(),
-                availability : $('#availability').val()
-            }
-
-            var dataString = JSON.stringify(data);
-
-            console.log(dataString);
-
-            $.ajax({
-                url: "http://127.0.0.1:8081/bookUpdate",
-                type: "PUT",
-                data: dataString,
-                dataType : 'json',
-                //processData: false,  // indique à jQuery de ne pas traiter les données
-                contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
-                success: function() {
-                    alert('Livre ajouté avec succès');
-                },
-                error: function(data) {
-                    console.log(data)
-                    alert("erreur");
+                var data = {
+                    id : reader['id'],
+                    genre : $('#genre').val(),
+                    nom : $('#nom').val(),
+                    prenom : $('#prenom').val(),
+                    dateDeNaissance : $('#date_de_naissance').val(),
+                    adresse : $('#adresse').val()
                 }
-            });
-        })
-    });
-</script>
+
+                var dataString = JSON.stringify(data);
+
+                $.ajax({
+                    url: "http://127.0.0.1:8081/reader/update",
+                    type: "PUT",
+                    data: dataString,
+                    dataType : 'json',
+                    //processData: false,  // indique à jQuery de ne pas traiter les données
+                    contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
+                    success: function() {
+                        if(confirm('Utilisateur modifié avec succès')){
+                            window.location.replace("/readers");
+                        }
+                    },
+                    error: function(data) {
+                        console.log(data)
+                        alert("erreur");
+                    }
+                });
+            })
+        });
+    </script>
+</div>
 </body>
 </html>

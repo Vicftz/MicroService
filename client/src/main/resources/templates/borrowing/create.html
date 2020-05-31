@@ -26,10 +26,6 @@
                     <label for="borrowing_date">Date d'emprunt</label>
                     <input type="date" class="form-control" id="borrowing_date" name="borrowing_date" placeholder="Date d'emprunt" value="">
                 </div>
-                <div class="form-group">
-                    <label for="returning_date">Date de retour</label>
-                    <input type="date" class="form-control" id="returning_date" name="returning_date" value="">
-                </div>
             </form>
             <div class="btn btn-primary" id="btn-submit">Submit</div>
         </div>
@@ -42,9 +38,9 @@
 
                 var data = {
                     isbn : $('#isbn').val(),
-                    id_reader : $('#id_reader').val(),
-                    borrowing_date : $('#borrowing_date').val(),
-                    returning_date : $('#returning_date').val()
+                    idReader : $('#id_reader').val(),
+                    borrowingDate : $('#borrowing_date').val(),
+                    returningDate : null
                 }
 
                 var dataString = JSON.stringify(data);

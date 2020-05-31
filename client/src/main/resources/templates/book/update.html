@@ -32,11 +32,6 @@
                         <option value="Roman">Roman</option>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="availability">Disponible ?</label>
-                    <input type="checkbox" class="form-control" id="availability" name="availability">
-                </div>
             </form>
             <div class="btn btn-primary" id="btn-submit">Submit</button>
         </div>
@@ -45,18 +40,15 @@
 
 <script th:inline="javascript">
     var book = JSON.parse([[${book}]]);
-    console.log(book)
-    console.log(parseInt(book['year']))
     $( document ).ready(function() {
         $('#title').val(book['title']);
         $('#author').val(book['author']);
         $('#editor').val(book['editor']);
         $('#year').val(parseInt(book['year']));
         $('#type').val(book['type']);
-        $("#checkbox1").prop('checked', $('#availability').val(book['availability']));
+
 
         $('#btn-submit').click(function () {
-            console.log('click');
 
             var data = {
                 isbn : book['isbn'],
@@ -65,7 +57,7 @@
                 editor : $('#editor').val(),
                 year : $('#year').val(),
                 type : $('#type').val(),
-                availability : $('#availability').val()
+                availability : book['availability']
             }
 
             var dataString = JSON.stringify(data);
@@ -80,7 +72,9 @@
                 //processData: false,  // indique à jQuery de ne pas traiter les données
                 contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
                 success: function() {
-                    alert('Livre modifié avec succès');
+                    if(confirm('Livre modifié avec succès')){
+                        window.location.replace("/books");
+                    }
                 },
                 error: function(data) {
                     console.log(data)
