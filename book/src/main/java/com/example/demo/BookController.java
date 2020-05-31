@@ -46,7 +46,7 @@ public class BookController {
 	
 	
 	//Delete
-	@DeleteMapping("/booksDelete/{isbn}")
+	@PostMapping("/booksDelete/{isbn}")
 	public String deleteBook (@PathVariable Long isbn)
 	{
 		repository.delete(repository.findByIsbn(isbn));

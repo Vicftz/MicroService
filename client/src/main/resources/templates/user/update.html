@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8 col-12">
-            <form>
+            <form method="POST" action="127.0.0.1:8080/books">
                 <div class="form-group">
                     <label for="title">Titre du livre</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre">
@@ -73,14 +73,14 @@
             console.log(dataString);
 
             $.ajax({
-                url: "http://127.0.0.1:8080/bookUpdates",
+                url: "http://127.0.0.1:8080/bookUpdate",
                 type: "PUT",
                 data: dataString,
                 dataType : 'json',
                 //processData: false,  // indique à jQuery de ne pas traiter les données
                 contentType: "application/json",   // indique à jQuery de ne pas configurer le contentType
                 success: function() {
-                    alert('Livre modifié avec succès');
+                    alert('Livre ajouté avec succès');
                 },
                 error: function(data) {
                     console.log(data)

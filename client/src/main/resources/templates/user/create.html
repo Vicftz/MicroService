@@ -8,36 +8,35 @@
 <div class="container">
     <div class="row">
         <h1 class="col-12 text-center my-4">
-            Ajouter un nouveau livre
+            Ajouter un nouvel utilisateur
         </h1>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-8 col-12">
             <form method="POST" action="127.0.0.1:8080/books" id="form">
                 <div class="form-group">
-                    <label for="title">Titre du livre</label>
+                    <label for="gender">Genre</label>
+                    <select class="form-control" id="gender" name="gender">
+                        <option value="M" selected>Homme</option>
+                        <option value="F">Femme</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="title">Nom</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="Titre du livre" value="">
                 </div>
                 <div class="form-group">
-                    <label for="author">Auteur</label>
+                    <label for="author">Prénom</label>
                     <input type="text" class="form-control" id="author" name="author" placeholder="Auteur" value="">
                 </div>
                 <div class="form-group">
-                    <label for="editor">Editeur</label>
-                    <input type="text" class="form-control" id="editor" name="title" placeholder="Editeur" value="">
+                    <label for="birthdate">Date de naissance</label>
+                    <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Date de naisance" value="">
                 </div>
                 <div class="form-group">
-                    <label for="year">Année de parution</label>
-                    <input type="number" class="form-control" id="year" name="year" placeholder="Année de parution" value="2020">
+                    <label for="address">Adresse</label>
+                    <input type="text" class="form-control" id="address" name="address" placeholder="Adresse" >
                 </div>
-                <div class="form-group">
-                    <label for="type">Type de livre</label>
-                    <select class="form-control" id="type" name="type">
-                        <option value="Bande dessinée" selected>Bande dessinée</option>
-                        <option value="Roman">Roman</option>
-                    </select>
-                </div>
-                <input type="hidden" value="true" name="availability">
             </form>
             <div class="btn btn-primary" id="btn-submit">Submit</div>
         </div>
